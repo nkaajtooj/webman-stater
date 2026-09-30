@@ -1,70 +1,54 @@
-<div style="padding:18px;max-width: 1024px;margin:0 auto;background-color:#fff;color:#333">
-<h1>webman</h1>
+# Webman Starter
 
-基于<a href="https://www.workerman.net" target="__blank">workerman</a>开发的超高性能PHP框架
+A PHP 8.3+ starter project built on [Webman](https://webman.workerman.net/). It includes Webman Console, database integrations (Eloquent and Think ORM), Redis, validation, Blade, migrations, and Laravel-style cache, filesystem, HTTP client, and authentication packages.
 
+## Requirements
 
-<h1>学习</h1>
+- PHP 8.3 or newer and Composer
+- PHP extensions: `curl`, `dom`, `json`, `pdo`, `zip`, and `redis` (see `composer.json`)
+- A database or Redis server only if your application uses those integrations
 
-<ul>
-  <li>
-    <a href="https://www.workerman.net/webman" target="__blank">主页 / Home page</a>
-  </li>
-  <li>
-    <a href="https://webman.workerman.net" target="__blank">文档 / Document</a>
-  </li>
-  <li>
-    <a href="https://www.workerman.net/doc/webman/install.html" target="__blank">安装 / Install</a>
-  </li>
-  <li>
-    <a href="https://www.workerman.net/questions" target="__blank">问答 / Questions</a>
-  </li>
-  <li>
-    <a href="https://www.workerman.net/apps" target="__blank">市场 / Apps</a>
-  </li>
-  <li>
-    <a href="https://www.workerman.net/sponsor" target="__blank">赞助 / Sponsors</a>
-  </li>
-  <li>
-    <a href="https://www.workerman.net/doc/webman/thanks.html" target="__blank">致谢 / Thanks</a>
-  </li>
-</ul>
+## Get started
 
-<div style="float:left;padding-bottom:30px;">
+From a checkout of this repository:
 
-  <h1>赞助商</h1>
+```sh
+composer install
+cp .env.example .env
+php start.php start
+```
 
-  <h4>特别赞助</h4>
-  <a href="https://www.crmeb.com/?form=workerman" target="__blank">
-    <img src="https://www.workerman.net/img/sponsors/6429/20230719111500.svg" width="200">
-  </a>
+Open <http://127.0.0.1:8787>. The starter's home page is the default Webman welcome page. The HTTP listener is configured in `config/process.php`.
 
-  <h4>铂金赞助</h4>
-  <a href="https://www.fadetask.com/?from=workerman" target="__blank"><img src="https://www.workerman.net/img/sponsors/1/20230719084316.png" width="200"></a>
-  <a href="https://www.yilianyun.net/?from=workerman" target="__blank" style="margin-left:20px;"><img src="https://www.workerman.net/img/sponsors/6218/20230720114049.png" width="200"></a>
+For a background process, use `php start.php start -d`; stop it with `php start.php stop`. Run `php webman list` to see the available console commands.
 
+## Configuration
 
-</div>
+Copy `.env.example` to `.env` and set values relevant to your application. The environment file is ignored by Git. `APP_URL` and the `AWS_*` values are used by the filesystem configuration in `config/plugin/webman-tech/laravel-filesystem/filesystems.php`; `CACHE_STORE` selects the cache store and defaults to `file`.
 
+The database and Redis connections currently have their own settings in `config/database.php`, `config/think-orm.php`, and `config/redis.php`. Set those files for your services: the `DB_*` and `REDIS_*` entries in `.env.example` are **not** wired into these connection configs. The default database examples point to local MySQL, while Redis defaults to `127.0.0.1:6379`.
 
-<div style="float:left;padding-bottom:30px;clear:both">
+Change the timezone in `config/app.php` and the locale in `config/translation.php`. The default view handler is `Raw` in `config/view.php`; configure Blade there if you want to render Blade templates.
 
-  <h1>请作者喝咖啡</h1>
+## Setup wizard
 
-<img src="https://www.workerman.net/img/wx_donate.png" width="200">
-<img src="https://www.workerman.net/img/ali_donate.png" width="200">
-<br>
-<b>如果您觉得webman对您有所帮助，欢迎捐赠。</b>
+`composer setup-webman` runs the interactive setup wizard. It lets you choose a locale, timezone, and optional Console, database, Redis, validation, and template packages. It can update `composer.json` by installing selected packages and removing installed components you did not select. It asks for confirmation before removing primary components. Review your selections before running it in an existing project. The wizard is skipped in non-interactive Composer sessions.
 
+## Project layout
 
-</div>
+| Path | Purpose |
+| --- | --- |
+| `app/controller/` | HTTP controllers; `IndexController` contains the example actions |
+| `app/model/` | Example model |
+| `app/view/` | Example view |
+| `config/` | Webman and plugin configuration |
+| `database/` | Migration and seeder paths used by the migrations plugin |
+| `public/` | Public web assets |
+| `resource/translations/` | Translation files |
+| `runtime/` | Runtime data and logs |
 
+For migration commands, run `php webman list` and look for `migrate:*` and `seed:*`. Configure the database connection before using them.
 
-<div style="clear: both">
-<h1>LICENSE</h1>
-The webman is open-sourced software licensed under the MIT.
-</div>
+## Documentation and license
 
-</div>
-
-
+See the [Webman documentation](https://webman.workerman.net/) for framework usage. This project is licensed under the [MIT License](LICENSE).
