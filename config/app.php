@@ -23,4 +23,5 @@ return [
     'runtime_path' => base_path(false) . DIRECTORY_SEPARATOR . 'runtime',
     'controller_suffix' => 'Controller',
     'controller_reuse' => false,
+    'url' => env('APP_URL', 'http://127.0.0.1:8000'),
 ];

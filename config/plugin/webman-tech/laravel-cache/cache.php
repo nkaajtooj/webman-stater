@@ -66,6 +66,11 @@ return [
         'octane' => [
             'driver' => 'octane',
         ],
+        'query' => [
+            'driver' => 'redis',
+            'connection' => 'query',
+            'lock_connection' => 'query',
+        ],
     ],
     // 一般不需要配置 prefix，比如 redis 下，实际已经在 redis 下配置过了
     'prefix' => '',
