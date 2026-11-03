@@ -14,8 +14,15 @@
 
 use Webman\Route;
 
+// Load routes from enabled addons after the application's routes.
+foreach (glob(app_path('addons') . '/*/addon.php') ?: [] as $manifestFile) {
+    $addon = require $manifestFile;
+    if (!is_array($addon) || empty($addon['enabled'])) {
+        continue;
+    }
 
-
-
-
-
+    $routeFile = dirname($manifestFile) . '/routes.php';
+    if (is_file($routeFile)) {
+        require $routeFile;
+    }
+}

@@ -41,6 +41,7 @@ Change the timezone in `config/app.php` and the locale in `config/translation.ph
 | `app/controller/` | HTTP controllers; `IndexController` contains the example actions |
 | `app/model/` | Example model |
 | `app/view/` | Example view |
+| `app/addons/` | Self-contained application addons and their routes |
 | `config/` | Webman and plugin configuration |
 | `database/` | Migration and seeder paths used by the migrations plugin |
 | `public/` | Public web assets |
@@ -48,6 +49,10 @@ Change the timezone in `config/app.php` and the locale in `config/translation.ph
 | `runtime/` | Runtime data and logs |
 
 For migration commands, run `php webman list` and look for `migrate:*` and `seed:*`. Configure the database connection before using them.
+
+## Addons
+
+Create an addon with `php webman make:addon blog`. This creates `app/addons/blog/addon.php`, `routes.php`, `controller/IndexController.php`, and a `view/` directory. The example route is available at `/addons/blog` after restarting the server. Add routes in the addon's `routes.php` and classes under its `app\\addons\\blog` namespace. Set `enabled` to `false` in `addon.php` to stop loading its routes. Names must use lowercase letters, numbers, and underscores, beginning with a letter. The command refuses to overwrite an existing addon.
 
 ## Documentation and license
 
